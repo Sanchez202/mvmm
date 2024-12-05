@@ -1,8 +1,9 @@
-package com.jeison.mvvmapp.view
+package com.jeison.mvvmapp.ui.view
 
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import com.jeison.mvvmapp.databinding.ActivityMainBinding
 import com.jeison.mvvmapp.viewmodel.QuoteViewModel
@@ -17,13 +18,16 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        quoteViewModel.onCreate()
+
         quoteViewModel.quoteModel.observe(this, Observer { currentQuote ->
             binding.tvQuote.text = currentQuote.quote
             binding.tvAuthor.text = currentQuote.author
         })
 
         binding.viewContainer.setOnClickListener { quoteViewModel.randomQuote()}
-
+quoteViewModel.isloading.observe(this, Observer{Boolean
+        binding.pgBar.isVisible=it})
     }
 }
 
